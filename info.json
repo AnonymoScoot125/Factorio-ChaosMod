@@ -1,0 +1,10 @@
+{
+	"name": "Factorio-ChaosMod",
+	"version": "0.1.0",
+	"factorio_version": "1.1.0",
+	"title": "Chaos Mod",
+	"author": "AnonymoScoot",
+	"homepage": "N/A",
+	"description": "New random effect every regular interval.",
+	"dependencies": ["base"]
+}

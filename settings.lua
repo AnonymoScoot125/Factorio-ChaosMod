@@ -1,4 +1,3 @@
-
 data:extend({
     {
         type = "bool-setting",

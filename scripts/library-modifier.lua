@@ -1,5 +1,6 @@
 modifier = {}
 
+------------// Force Modifiers //------------
 function modifier.applyForceModifier(mod)
     local pick = math.random()
     local distanceToBottom = math.abs(game.forces.player[mod] - modifier[mod].minValue)
@@ -15,15 +16,11 @@ function modifier.applyForceModifier(mod)
             math.clamp(modifier[mod].exceedValue - distanceToBottom, 0, modifier[mod].exceedValue)
     end
 
-    local randomValue = math.randomRange(minValue, maxValue)
-    randomValue = math.roundTo(randomValue, modifier[mod].increment)
+    local randomValue = math.roundTo(math.randomRange(minValue, maxValue), modifier[mod].increment)
 
-    local modifyingValue = math.clampBottom(
-        math.roundTo(game.forces.player[mod] + randomValue, modifier[mod].increment), modifier[mod].minValue)
+    game.forces.player[mod] = math.clampBottom(game.forces.player[mod] + randomValue, modifier[mod].minValue)
 
-    game.forces.player[mod] = modifyingValue
-
-    return modifyingValue
+    return randomValue
 end
 
 function modifier.revertForceModifier(mod, value)
@@ -151,4 +148,104 @@ modifier["train_braking_force_bonus"] = {
     minValue = 0,
     exceedValue = 2,
     increment = 0.1,
+}
+
+------------// Difficulty Modifiers //------------
+function modifier.applyDifficulyModifier(mod)
+    local pick = math.random()
+    local distanceToBottom = math.abs(game.difficulty_settings[mod] - modifier[mod].minValue)
+    local minValue = 0
+    local maxValue = 0
+
+    if pick < 0.5 and distanceToBottom - modifier[mod].increment >= 0 then
+        minValue = -distanceToBottom
+        maxValue = -modifier[mod].increment
+    else
+        minValue = modifier[mod].increment
+        maxValue = distanceToBottom +
+            math.clamp(modifier[mod].exceedValue - distanceToBottom, 0, modifier[mod].exceedValue)
+    end
+
+    local randomValue = math.roundTo(math.randomRange(minValue, maxValue), modifier[mod].increment)
+
+    game.difficulty_settings[mod] = math.clampBottom(game.difficulty_settings[mod] + randomValue, modifier[mod].minValue)
+
+    return randomValue
+end
+
+function modifier.revertDifficulyModifier(mod, value)
+    game.difficulty_settings[mod] = math.clampBottom(
+        math.roundTo(game.difficulty_settings[mod] - value, modifier[mod].increment),
+        modifier[mod].minValue)
+end
+
+modifier["technology_price_multiplier"] = {
+    minValue = 0.1,
+    exceedValue = 4,
+    increment = 0.1,
+}
+
+------------// MapSettings Modifiers //------------
+function modifier.applyMapSettingsModifier(setting, mod)
+    local pick = math.random()
+    local distanceToBottom = math.abs(game.map_settings[setting][mod] - modifier[mod].minValue)
+    local minValue = 0
+    local maxValue = 0
+
+    if pick < 0.5 and distanceToBottom - modifier[mod].increment >= 0 then
+        minValue = -distanceToBottom
+        maxValue = -modifier[mod].increment
+    else
+        minValue = modifier[mod].increment
+        maxValue = modifier[mod].maxValue - game.map_settings[setting][mod]
+    end
+
+    local randomValue = math.roundTo(math.randomRange(minValue, maxValue), modifier[mod].increment)
+
+    game.map_settings[setting][mod] = math.clamp(game.map_settings[setting][mod] + randomValue, modifier[mod].minValue,
+        modifier[mod].maxValue)
+
+    return randomValue
+end
+
+function modifier.revertMapSettingsModifier(setting, mod, value)
+    game.map_settings[setting][mod] = math.clamp(
+        math.roundTo(game.map_settings[setting][mod] - value, modifier[mod].increment), modifier[mod].minValue,
+        modifier[mod].maxValue)
+end
+
+modifier["diffusion_ratio"] = {
+    minValue = 0.001,
+    maxValue = 0.1,
+    increment = 0.001,
+}
+modifier["min_to_diffuse"] = {
+    minValue = 1,
+    maxValue = 75,
+    increment = 1,
+}
+modifier["ageing"] = {
+    minValue = 0.1,
+    maxValue = 10,
+    increment = 0.1,
+}
+modifier["enemy_attack_pollution_consumption_modifier"] = {
+    minValue = 0.1,
+    maxValue = 10,
+    increment = 0.1,
+}
+modifier["time_factor"] = {
+    minValue = 0.000001,
+    maxValue = 0.0001,
+    increment = 0.000001,
+}
+modifier["destroy_factor"] = {
+    minValue = 0.0002,
+    maxValue = 0.02,
+    increment = 0.0001,
+}
+modifier["pollution_factor"] = {
+    minValue = 0.0000001,
+    maxValue = 0.000009,
+    increment = 0.0000001,
 }

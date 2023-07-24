@@ -1,4 +1,4 @@
-local REFIRE_INTERVAL = 120
+local REFIRE_INTERVAL = settings.global["chaos-refire-interval"].value * 60
 
 global.nextChaosTimerRefire = REFIRE_INTERVAL
 global.activeChaosEffects = {}
@@ -6,11 +6,14 @@ global.activeChaosEffects = {}
 local chaosEffects = {}
 
 function addChaosEffect(effect)
+	if not effect.name then return end
+	if settings.global["chaos-effect-" .. effect.name].value == false then return end
 	local effectEntry = effect
 	effectEntry.effectFunction = effectEntry.effectFunction or function() game.print("Invalid effect function") end
 	effectEntry.resetFunction = effectEntry.resetFunction or nil
 	effectEntry.description = effectEntry.description or "Invalid description"
-	effectEntry.duration = effectEntry.duration or 60
+	effectEntry.duration = effectEntry.duration and
+		math.roundTo(settings.global["chaos-duration-multiplier"].value * effectEntry.duration, 1) or 1800
 	effectEntry.gain = effectEntry.gain or 0
 	effectEntry.id = #chaosEffects + 1
 
@@ -20,8 +23,8 @@ end
 require("effects")
 
 function isChaosEffectAlreadyActive(id)
-	for k, v in pairs(global.activeChaosEffects) do
-		if id == v.id then
+	for _, activeChaosEffect in pairs(global.activeChaosEffects) do
+		if id == activeChaosEffect.id then
 			return true
 		end
 	end
@@ -39,40 +42,9 @@ function addActiveChaosEffect(chaosEffect, endOnTick, effectFunctionTable)
 	table.insert(global.activeChaosEffects, effect)
 end
 
-function addDisplayedChaosEffect(chaosEffect)
-	local effect = chaosEffect
-
-	table.insert(global.displayedChaosEffects, effect)
-end
-
--- function getEffectDescription(effectFunctionTable)
--- 	local description = {}
--- 	local modifierTable = effectFunctionTable.modifierTable
-
--- 	if modifierTable then
--- 		if modifierTable.percentageBased then
--- 			description = { modifierTable.description, effectFunctionTable.modifyingValue * 100 }
--- 		else
--- 			description = { modifierTable.description, effectFunctionTable.modifyingValue }
--- 		end
--- 	end
-
--- 	return description
--- end
-
 function formatPrintedEffectDescription(chaosEntry, effectFunctionTable)
 	local description = effectFunctionTable.description or chaosEntry.description
 	local gain = effectFunctionTable.gain or chaosEntry.gain
-
-	-- if effectFunctionTable.modifyingValue then
-	-- 	if effectFunctionTable.modifyingValue > 0 then
-	-- 		gain = gain.advantage
-	-- 		description = description.advantage
-	-- 	elseif effectFunctionTable.modifyingValue < 0 then
-	-- 		gain = gain.disadvantage
-	-- 		description = description.disadvantage
-	-- 	end
-	-- end
 
 	gain = (gain < -3 or gain > 3) and 0 or gain
 
@@ -88,25 +60,23 @@ function formatPrintedEffectDescription(chaosEntry, effectFunctionTable)
 	return { "", gainTable[gain], description, "[/color]" }
 end
 
-function pickRandomChaosEffect(event)
-	local randomIndex
-
+function pickRandomChaosEffect()
 	if #chaosEffects < 1 then return end
 
 	for try = 1, 10 do
-		randomIndex = math.random(#chaosEffects)
+		local randomIndex = math.random(#chaosEffects)
 		local chaosEntry = chaosEffects[randomIndex]
 
 		if not isChaosEffectAlreadyActive(chaosEntry.id) then
 			local effectFunctionTable = chaosEntry.effectFunction() or
 				{ gain = chaosEntry.gain, description = chaosEntry.description }
 
-			for k, v in pairs(game.players) do
-				if settings.get_player_settings(k)["chaos-messages-in-chat"].value then
-					v.print(formatPrintedEffectDescription(chaosEntry, effectFunctionTable))
+			for id, player in pairs(game.players) do
+				if settings.get_player_settings(id)["chaos-messages-in-chat"].value then
+					player.print(formatPrintedEffectDescription(chaosEntry, effectFunctionTable))
 				end
 
-				addEffectToPlayerGUI(v, chaosEntry, effectFunctionTable)
+				addEffectToPlayerGUI(player, chaosEntry, effectFunctionTable)
 			end
 
 			addActiveChaosEffect(chaosEntry, game.tick + chaosEntry.duration, effectFunctionTable)
@@ -146,21 +116,21 @@ function addEffectToPlayerGUI(player, chaosEntry, effectFunctionTable)
 	end
 end
 
-function updatePlayerGUI(event)
+function updatePlayerGUI()
 	for _, player in pairs(game.players) do
 		if player.gui.top.chaos_frame then
 			local mainFrame = player.gui.top.chaos_frame
 
 			if mainFrame.chaos_progressbar then
-				mainFrame.chaos_progressbar.value = (event.tick - global.nextChaosTimerRefire + REFIRE_INTERVAL) /
+				mainFrame.chaos_progressbar.value = (game.tick - global.nextChaosTimerRefire + REFIRE_INTERVAL) /
 					REFIRE_INTERVAL
 			end
 
-			for k, v in pairs(global.activeChaosEffects) do
-				if mainFrame["effect_" .. v.id] then
-					if mainFrame["effect_" .. v.id]["effect_" .. v.id .. "_progressbar"] then
-						mainFrame["effect_" .. v.id]["effect_" .. v.id .. "_progressbar"].value = (v.endOnTick - event.tick) /
-							v.duration
+			for _, activeChaosEffect in pairs(global.activeChaosEffects) do
+				if mainFrame["effect_" .. activeChaosEffect.id] then
+					if mainFrame["effect_" .. activeChaosEffect.id]["effect_" .. activeChaosEffect.id .. "_progressbar"] then
+						mainFrame["effect_" .. activeChaosEffect.id]["effect_" .. activeChaosEffect.id .. "_progressbar"].value = (activeChaosEffect.endOnTick - game.tick) /
+							activeChaosEffect.duration
 					end
 				end
 			end
@@ -168,7 +138,7 @@ function updatePlayerGUI(event)
 	end
 end
 
-function removeEffectFromPlayerGUI(event, id)
+function removeEffectFromPlayerGUI(id)
 	for _, player in pairs(game.players) do
 		if player.gui.top.chaos_frame then
 			local mainFrame = player.gui.top.chaos_frame
@@ -180,27 +150,27 @@ function removeEffectFromPlayerGUI(event, id)
 	end
 end
 
-function updateActiveChaosEffects(event)
-	for k, v in pairs(global.activeChaosEffects) do
-		if v.endOnTick <= game.tick then
-			local effect = chaosEffects[v.id]
+function updateActiveChaosEffects()
+	for idEffect, activeChaosEffect in pairs(global.activeChaosEffects) do
+		if activeChaosEffect.endOnTick <= game.tick then
+			local effect = chaosEffects[activeChaosEffect.id]
 
-			if effect.resetFunction then effect.resetFunction(v.effectFunctionTable) end
+			if effect.resetFunction then effect.resetFunction(activeChaosEffect.effectFunctionTable) end
 
-			removeEffectFromPlayerGUI(event, v.id)
-			table.remove(global.activeChaosEffects, k)
+			removeEffectFromPlayerGUI(activeChaosEffect.id)
+			table.remove(global.activeChaosEffects, idEffect)
 		end
 	end
 end
 
 script.on_event(defines.events.on_tick, function(event)
-	updateActiveChaosEffects(event)
-	updatePlayerGUI(event)
+	updateActiveChaosEffects()
+	updatePlayerGUI()
 
 	if game.tick >= global.nextChaosTimerRefire then
 		global.nextChaosTimerRefire = game.tick + REFIRE_INTERVAL
 
-		pickRandomChaosEffect(event)
+		pickRandomChaosEffect()
 	end
 end)
 
@@ -214,9 +184,6 @@ script.on_event(defines.events.on_player_created, function(event)
 	style.width = 320
 	style.vertical_spacing = 0
 	style.height = 376
-
-	--local text = main_frame.add{type="label", name="chaos_timer"}
-	--text.caption = 0
 
 	local progressbar = main_frame.add { type = "progressbar", name = "chaos_progressbar" }
 	local style = progressbar.style

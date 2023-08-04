@@ -1307,7 +1307,7 @@ addChaosEffect({
 				surface.create_entity {
 					name = searchTable[keys[math.random(#keys)]].name,
 					position = entity.position,
-					amount = math.random() * (1000 - 10) + 10,
+					amount = math.randomRange(10, 1000),
 					enable_tree_removal = false,
 					enable_cliff_removal = false,
 					snap_to_tile_center = true
@@ -1927,6 +1927,97 @@ addChaosEffect({
 				description = { "chaos-description.enemy-expansion-enabled" },
 				gain = -3
 			}
+		end
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "turn-rocks-into-trees",
+	gain = 2,
+	description = { "chaos-description.turn-rocks-into-trees" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local searchTable = game.get_filtered_entity_prototypes({ {
+			filter = "type",
+			type = "tree"
+		} })
+
+		local keys = {}
+		for key, _ in pairs(searchTable) do
+			table.insert(keys, key)
+		end
+
+		for k, entity in pairs(surface.find_entities_filtered {
+			type = "simple-entity",
+		}) do
+			if entity.valid then
+				surface.create_entity {
+					name = searchTable[keys[math.random(#keys)]].name,
+					position = entity.position
+				}
+				entity.destroy {}
+			end
+		end
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "turn-rocks-into-resources",
+	gain = 2,
+	description = { "chaos-description.turn-rocks-into-resources" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local searchTable = game.get_filtered_entity_prototypes({ {
+			filter = "type",
+			type = "resource"
+		} })
+
+		local keys = {}
+		for key, prototype in pairs(searchTable) do
+			if prototype.resource_category == "basic-solid" then
+				table.insert(keys, key)
+			end
+		end
+
+		for k, entity in pairs(surface.find_entities_filtered {
+			type = "simple-entity",
+		}) do
+			if entity.valid then
+				surface.create_entity {
+					name = searchTable[keys[math.random(#keys)]].name,
+					position = entity.position,
+					amount = math.randomRange(100, 1000),
+					enable_tree_removal = false,
+					enable_cliff_removal = false,
+					snap_to_tile_center = true
+				}
+
+				entity.destroy()
+			end
+		end
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "deplete-random-resources",
+	gain = -3,
+	description = { "chaos-description.deplete-random-resources" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local randomNumber = math.random(10, 100)
+
+		for k, entity in pairs(surface.find_entities_filtered {
+			type = "resource",
+		}) do
+			if entity.valid and math.random(1, randomNumber) == 1 then
+				entity.deplete()
+			end
 		end
 	end,
 

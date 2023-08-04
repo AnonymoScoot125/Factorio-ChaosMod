@@ -1,4 +1,12 @@
-local REFIRE_INTERVAL = settings.global["chaos-refire-interval"].value * 60
+local devMode = false
+local REFIRE_INTERVAL
+
+if devMode then
+	REFIRE_INTERVAL = 120
+else
+	REFIRE_INTERVAL = settings.global["chaos-refire-interval"].value * 60
+end
+
 
 global.nextChaosTimerRefire = REFIRE_INTERVAL
 global.activeChaosEffects = {}
@@ -6,6 +14,10 @@ global.activeChaosEffects = {}
 local chaosEffects = {}
 
 function addChaosEffect(effect)
+	if devMode then
+		addChaosEffectDev(effect)
+		return
+	end
 	if not effect.name then return end
 	if settings.global["chaos-effect-" .. effect.name].value == false then return end
 	local effectEntry = effect
@@ -14,6 +26,18 @@ function addChaosEffect(effect)
 	effectEntry.description = effectEntry.description or "Invalid description"
 	effectEntry.duration = effectEntry.duration and
 		math.roundTo(settings.global["chaos-duration-multiplier"].value * effectEntry.duration, 1) or 1800
+	effectEntry.gain = effectEntry.gain or 0
+	effectEntry.id = #chaosEffects + 1
+
+	table.insert(chaosEffects, effectEntry)
+end
+
+function addChaosEffectDev(effect)
+	local effectEntry = effect
+	effectEntry.effectFunction = effectEntry.effectFunction or function() game.print("Invalid effect function") end
+	effectEntry.resetFunction = effectEntry.resetFunction or nil
+	effectEntry.description = effectEntry.description or "Invalid description"
+	effectEntry.duration = effectEntry.duration or 60
 	effectEntry.gain = effectEntry.gain or 0
 	effectEntry.id = #chaosEffects + 1
 

@@ -1,4 +1,4 @@
-local devMode = false
+local devMode = true
 local REFIRE_INTERVAL
 
 if devMode then
@@ -44,7 +44,11 @@ function addChaosEffectDev(effect)
 	table.insert(chaosEffects, effectEntry)
 end
 
-require("effects")
+if devMode then
+	require("effects-debug")
+else
+	require("effects")
+end
 
 function isChaosEffectAlreadyActive(id)
 	for _, activeChaosEffect in pairs(global.activeChaosEffects) do

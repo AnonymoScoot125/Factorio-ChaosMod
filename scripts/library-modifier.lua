@@ -253,21 +253,29 @@ modifier["pollution_factor"] = {
 ------------// ManGenSettings Modifiers //------------
 function modifier.applyMapGenSettingsModifier(surface, setting, mod, modifier_mod)
     local mapGenSettings = surface.map_gen_settings
-    local randomValue = modifier[modifier_mod][math.random(#modifier[modifier_mod])]
+    local randomEntry = math.random(#modifier[modifier_mod])
+    local randomValue = modifier[modifier_mod][randomEntry].value
 
     game.print(randomValue)
 
     mapGenSettings[setting][mod] = randomValue
     surface.map_gen_settings = mapGenSettings
 
-    return randomValue
+    return randomEntry
 end
 
-modifier["cliff_richness"] = {
-    "none",
-    "very-high"
+modifier["map_gen_size"] = {
+    { value = 0,                description = "none" },
+    { value = 1 / 2,            description = "very low" },
+    { value = 1 / math.sqrt(2), description = "low" },
+    { value = 1,                description = "normal" },
+    { value = math.sqrt(2),     description = "high" },
+    { value = 2,                description = "very high" },
 }
 modifier["cliff_elevation_interval"] = {
-    100.0,
-    6.0
+    { value = 240, description = "very low" },
+    { value = 80,  description = "low" },
+    { value = 40,  description = "normal" },
+    { value = 20,  description = "high" },
+    { value = 6,   description = "very high" },
 }

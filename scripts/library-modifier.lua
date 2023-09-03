@@ -255,21 +255,19 @@ function modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
     local randomEntry = math.random(#modifier[modifier_mod])
     local randomValue = modifier[modifier_mod][randomEntry].value
 
-    game.print(randomValue)
-
     surface.map_gen_settings = fn(randomValue)
 
     return randomEntry
 end
 
-modifier["map_gen_size"] = {
-    { value = 0,                description = "none" },
-    { value = 0.5,              description = "very low" },
-    { value = 1 / math.sqrt(2), description = "low" },
-    { value = 1,                description = "normal" },
-    { value = math.sqrt(2),     description = "high" },
-    { value = 2,                description = "very high" },
-}
+-- modifier["map_gen_size"] = {
+--     { value = 0,                description = "none" },
+--     { value = 0.5,              description = "very low" },
+--     { value = 1 / math.sqrt(2), description = "low" },
+--     { value = 1,                description = "normal" },
+--     { value = math.sqrt(2),     description = "high" },
+--     { value = 2,                description = "very high" },
+-- }
 modifier["cliff_elevation_interval"] = {
     { value = 240, description = "very low" },
     { value = 80,  description = "low" },
@@ -277,18 +275,28 @@ modifier["cliff_elevation_interval"] = {
     { value = 20,  description = "high" },
     { value = 6,   description = "very high" },
 }
-modifier["water_coverage"] = {
-    { value = 0,    description = "none" },
-    { value = 0.25, description = "very low" },
-    { value = 0.75, description = "low" },
-    { value = 1,    description = "normal" },
-    { value = 2,    description = "high" },
-    { value = 6,    description = "very high" },
-}
-modifier["water_scale"] = {
-    { value = 6,     description = "very low" },
-    { value = 2,     description = "low" },
+-- Coverage
+modifier["map_gen_size"] = {
+    { value = 0,     description = "none" },
+    { value = 1 / 6, description = "very low" },
+    { value = 1 / 3, description = "low" },
     { value = 1,     description = "normal" },
-    { value = 0.5,   description = "high" },
+    { value = 3,     description = "high" },
+    { value = 6,     description = "very high" },
+}
+-- Non-zero
+modifier["map_gen_size_nonzero"] = {
+    { value = 1 / 6, description = "very low" },
+    { value = 1 / 3, description = "low" },
+    { value = 1,     description = "normal" },
+    { value = 3,     description = "high" },
+    { value = 6,     description = "very high" },
+}
+-- Frequency
+modifier["map_gen_scale"] = {
+    { value = 6,     description = "very low" },
+    { value = 3,     description = "low" },
+    { value = 1,     description = "normal" },
+    { value = 1 / 3, description = "high" },
     { value = 1 / 6, description = "very high" },
 }

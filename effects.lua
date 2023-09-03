@@ -2022,3 +2022,649 @@ addChaosEffect({
 	end,
 
 })
+
+addChaosEffect({
+
+	name = "mapgen-cliff-richness",
+	description = { "chaos-description.mapgen-cliff-richness" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["cliff_settings"]["richness"] = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			modifyingValue = value,
+			gain = value < 1 and 2 or
+				(value == 1 and 0 or -2),
+			description = { "chaos-description.mapgen-cliff-richness", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-cliff-elevation-interval",
+	description = { "chaos-description.mapgen-cliff-elevation-interval" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "cliff_elevation_interval"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["cliff_settings"]["cliff_elevation_interval"] = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			modifyingValue = value,
+			gain = value < 40 and -2 or
+				(value == 40 and 0 or 2),
+			description = { "chaos-description.mapgen-cliff-elevation-interval", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-water-coverage",
+	description = { "chaos-description.mapgen-water-coverage" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["water"] = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-water-coverage", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-water-scale",
+	description = { "chaos-description.mapgen-water-scale" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_scale"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["terrain_segmentation"] = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-water-scale", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-trees-frequency",
+	description = { "chaos-description.mapgen-autoplace-trees-frequency" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_scale"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"].trees.frequency = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-trees-frequency", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-trees-size",
+	description = { "chaos-description.mapgen-autoplace-trees-size" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"].trees.size = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-trees-size", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-coal-frequency",
+	description = { "chaos-description.mapgen-autoplace-coal-frequency" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["coal"].frequency = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-coal-frequency", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-coal-size",
+	description = { "chaos-description.mapgen-autoplace-coal-size" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["coal"].size = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-coal-size", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-coal-richness",
+	description = { "chaos-description.mapgen-autoplace-coal-richness" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["coal"].richness = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-coal-richness", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-stone-frequency",
+	description = { "chaos-description.mapgen-autoplace-stone-frequency" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["stone"].frequency = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-stone-frequency", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-stone-size",
+	description = { "chaos-description.mapgen-autoplace-stone-size" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["stone"].size = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-stone-size", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-stone-richness",
+	description = { "chaos-description.mapgen-autoplace-stone-richness" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["stone"].richness = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-stone-richness", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-iron-ore-frequency",
+	description = { "chaos-description.mapgen-autoplace-iron-ore-frequency" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["iron-ore"].frequency = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-iron-ore-frequency", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-iron-ore-size",
+	description = { "chaos-description.mapgen-autoplace-iron-ore-size" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["iron-ore"].size = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-iron-ore-size", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-iron-ore-richness",
+	description = { "chaos-description.mapgen-autoplace-iron-ore-richness" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["iron-ore"].richness = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-iron-ore-richness", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-copper-ore-frequency",
+	description = { "chaos-description.mapgen-autoplace-copper-ore-frequency" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["copper-ore"].frequency = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-copper-ore-frequency", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-copper-ore-size",
+	description = { "chaos-description.mapgen-autoplace-copper-ore-size" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["copper-ore"].size = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-copper-ore-size", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-copper-ore-richness",
+	description = { "chaos-description.mapgen-autoplace-copper-ore-richness" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["copper-ore"].richness = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-copper-ore-richness", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-uranium-ore-frequency",
+	description = { "chaos-description.mapgen-autoplace-uranium-ore-frequency" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["uranium-ore"].frequency = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-uranium-ore-frequency", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-uranium-ore-size",
+	description = { "chaos-description.mapgen-autoplace-uranium-ore-size" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["uranium-ore"].size = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-uranium-ore-size", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-uranium-ore-richness",
+	description = { "chaos-description.mapgen-autoplace-uranium-ore-richness" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["uranium-ore"].richness = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-uranium-ore-richness", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-crude-oil-frequency",
+	description = { "chaos-description.mapgen-autoplace-crude-oil-frequency" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["crude-oil"].frequency = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-crude-oil-frequency", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-crude-oil-size",
+	description = { "chaos-description.mapgen-autoplace-crude-oil-size" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["crude-oil"].size = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-crude-oil-size", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-crude-oil-richness",
+	description = { "chaos-description.mapgen-autoplace-crude-oil-richness" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["crude-oil"].richness = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and -2 or (value == 1 and 0 or 2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-crude-oil-richness", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-enemy-base-frequency",
+	description = { "chaos-description.mapgen-autoplace-enemy-base-frequency" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["enemy-base"].frequency = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and 2 or (value == 1 and 0 or -2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-enemy-base-frequency", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-enemy-base-size",
+	description = { "chaos-description.mapgen-autoplace-enemy-base-size" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["enemy-base"].size = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and 2 or (value == 1 and 0 or -2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-enemy-base-size", description },
+		}
+	end,
+
+})
+
+addChaosEffect({
+
+	name = "mapgen-autoplace-enemy-base-richness",
+	description = { "chaos-description.mapgen-autoplace-enemy-base-richness" },
+	effectFunction = function()
+		local surface = game.players[#game.players].surface
+		local modifier_mod = "map_gen_size_nonzero"
+		local fn = function(number)
+			local mapGenSettings = surface.map_gen_settings
+			mapGenSettings["autoplace_controls"]["enemy-base"].richness = number
+			return mapGenSettings
+		end
+		local entry = modifier.applyMapGenSettingsModifier(surface, fn, modifier_mod)
+		local value = modifier[modifier_mod][entry].value
+		local description = modifier[modifier_mod][entry].description
+		return {
+			gain = value < 1 and 2 or (value == 1 and 0 or -2),
+			modifyingValue = value,
+			description = { "chaos-description.mapgen-autoplace-enemy-base-richness", description },
+		}
+	end,
+
+})

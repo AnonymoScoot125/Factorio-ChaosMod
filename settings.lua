@@ -532,5 +532,185 @@ data:extend({
         setting_type = "runtime-global",
         default_value = true
     },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-turn-rocks-into-trees",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-turn-rocks-into-resources",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-deplete-random-resources",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-cliff-richness",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-cliff-elevation-interval",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-water-coverage",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-water-scale",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-trees-frequency",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-trees-size",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-coal-frequency",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-coal-size",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-coal-richness",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-stone-frequency",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-stone-size",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-stone-richness",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-iron-ore-frequency",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-iron-ore-size",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-iron-ore-richness",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-copper-ore-frequency",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-copper-ore-size",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-copper-ore-richness",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-uranium-ore-frequency",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-uranium-ore-size",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-uranium-ore-richness",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-crude-oil-frequency",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-crude-oil-size",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-crude-oil-richness",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-enemy-base-frequency",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-enemy-base-size",
+        setting_type = "runtime-global",
+        default_value = true
+    },
+    {
+        type = "bool-setting",
+        name = "chaos-effect-mapgen-autoplace-enemy-base-richness",
+        setting_type = "runtime-global",
+        default_value = true
+    },
 
 })

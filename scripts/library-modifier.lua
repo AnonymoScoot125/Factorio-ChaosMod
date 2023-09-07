@@ -300,3 +300,14 @@ modifier["map_gen_scale"] = {
     { value = 1 / 3, description = "high" },
     { value = 1 / 6, description = "very high" },
 }
+modifier["tile_probability"] = {
+    { value = 0.1, description = "10" },
+    { value = 0.2, description = "20" },
+    { value = 0.3, description = "30" },
+    { value = 0.4, description = "40" },
+    { value = 0.5, description = "50" },
+    { value = 0.6, description = "60" },
+    { value = 0.7, description = "70" },
+    { value = 0.8, description = "80" },
+    { value = 0.9, description = "90" },
+}

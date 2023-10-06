@@ -588,109 +588,19 @@ data:extend({
     },
     {
         type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-coal-frequency",
+        name = "chaos-effect-mapgen-autoplace-control-frequency",
         setting_type = "runtime-global",
         default_value = true
     },
     {
         type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-coal-size",
+        name = "chaos-effect-mapgen-autoplace-control-size",
         setting_type = "runtime-global",
         default_value = true
     },
     {
         type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-coal-richness",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-stone-frequency",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-stone-size",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-stone-richness",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-iron-ore-frequency",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-iron-ore-size",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-iron-ore-richness",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-copper-ore-frequency",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-copper-ore-size",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-copper-ore-richness",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-uranium-ore-frequency",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-uranium-ore-size",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-uranium-ore-richness",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-crude-oil-frequency",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-crude-oil-size",
-        setting_type = "runtime-global",
-        default_value = true
-    },
-    {
-        type = "bool-setting",
-        name = "chaos-effect-mapgen-autoplace-crude-oil-richness",
+        name = "chaos-effect-mapgen-autoplace-control-richness",
         setting_type = "runtime-global",
         default_value = true
     },

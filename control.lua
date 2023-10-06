@@ -1,4 +1,4 @@
-local devMode = true
+local devMode = false
 local REFIRE_INTERVAL
 
 if devMode then
